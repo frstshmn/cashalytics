@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class OperationController extends Controller
 {
     public function getCashierPage(Request $request) {
-        $point = Point::where("employee_id", Auth::user()->id)->first();
-        $operations = Operation::where("point_id", $point->id)->orderBy("created_at", "desc")->take(10)->get();
+
         $filter = array(
             "income_amount_min" => $request->income_amount_min,
             "income_amount_max" => $request->income_amount_max,
@@ -21,38 +20,16 @@ class OperationController extends Controller
             "outcome_amount_max" => $request->outcome_amount_max,
             "outcome_currency_id" => $request->outcome_currency_id,
             "rate" => $request->rate,
-            "date_time" => $request->date_time,
+            "date_time_from" => $request->date_time_from,
+            "date_time_till" => $request->date_time_till,
         );
 
-        if ($request->income_amount_min) {
-            $operations = $operations->where("income_amount", ">=", $request->income_amount_min);
-        }
-        elseif ($request->income_amount_max) {
-            $operations = $operations->where("income_amount", "<=", $request->income_amount_max);
-        }
-        elseif ($request->income_currency_id) {
-            $operations = $operations->where("income_currency_id", $request->income_currency_id);
-        }
-        elseif ($request->outcome_amount_min) {
-            $operations = $operations->where("outcome_amount", ">=", $request->outcome_amount_min);
-        }
-        elseif ($request->outcome_amount_max) {
-            $operations = $operations->where("outcome_amount", "<=", $request->outcome_amount_max);
-        }
-        elseif ($request->outcome_currency_id) {
-            $operations = $operations->where("outcome_currency_id", $request->outcome_currency_id);
-        }
-        elseif ($request->rate) {
-            $operations = $operations->where("rate", $request->rate);
-        }
-        elseif ($request->date_time) {
-            $startDate = Carbon::createFromFormat('d/m/Y', date("Y-m-d H:i:s", strtotime($request->date_time)));
-            $endDate = Carbon::createFromFormat('d/m/Y', date("Y-m-d H:i:s", strtotime("+1", strtotime($request->date_time))));
+        $point = Point::where("employee_id", Auth::user()->id)->first();
 
-            $operations = $operations->whereBetween(
-                "created_at", [$startDate, $endDate]
-            );
-        }
+        $condition = $this->getCondition($request);
+        $condition[] = ["point_id", "=", $point->id];
+
+        $operations = Operation::where($condition)->orderBy("created_at", "desc")->take(10)->get();
 
         if ($point) {
             if ($request->message) {
@@ -72,6 +49,68 @@ class OperationController extends Controller
             }
         } else {
             return redirect()->route('points');
+        }
+    }
+
+    private function getCondition(Request $request) {
+        $condition = array();
+
+        if ($request->income_amount_min) {
+            $condition[] = ["income_amount", ">=", $request->income_amount_min];
+        }
+        if ($request->income_amount_max) {
+            $condition[] = ["income_amount", "<=", $request->income_amount_max];
+        }
+        if (is_int($request->income_currency_id)) {
+            $condition[] = ["income_currency_id", "=", $request->income_currency_id];
+        }
+        if ($request->outcome_amount_min) {
+            $condition[] = ["outcome_amount", ">=", $request->outcome_amount_min];
+        }
+        if ($request->outcome_amount_max) {
+            $condition[] = ["outcome_amount", "<=", $request->outcome_amount_max];
+        }
+        if (is_int($request->outcome_currency_id)) {
+            $condition[] = ["outcome_currency_id", "=", $request->outcome_currency_id];
+        }
+        if ($request->rate) {
+            $condition[] = ["rate", "=", $request->rate];
+        }
+        if ($request->date_time_from) {
+
+            $startDate = Carbon::createFromFormat("Y-m-d", $request->date_time_from)->startOfDay();
+
+            if ($request->date_time_till) {
+                $endDate = Carbon::createFromFormat("Y-m-d", $request->date_time_till)->endOfDay();
+            } else {
+                $endDate = Carbon::createFromFormat("Y-m-d", $request->date_time_from)->addDay();
+            }
+
+            $condition[] = ["created_at", ">=", $startDate];
+            $condition[] = ["created_at", "<=", $endDate];
+        }
+
+        if (!$request->date_time_from && $request->date_time_till) {
+            $startDate = Carbon::createFromFormat('Y-m-d', "01/01/1970");
+
+            $endDate = Carbon::createFromFormat('Y-m-d', strtotime($request->date_time_till))->endOfDay();
+
+            $condition[] = ["created_at", ">=", $startDate];
+            $condition[] = ["created_at", "<=", $endDate];
+        }
+
+        return $condition;
+    }
+
+    public function cancelOperation(Request $request)
+    {
+        $operation = Operation::where("id", $request->operation_id)->first();
+
+        if ($operation) {
+            $operation->status = 2;
+            $operation->save();
+
+            return redirect()->route('operations');
         }
     }
 }

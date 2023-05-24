@@ -24,6 +24,7 @@ class CreateOperationsTable extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('client_id')->index()->nullable()->constrained();
             $table->string('comments')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
 
             $table->foreign('outcome_currency_id')->references('id')->on('currencies')->onDelete('cascade');

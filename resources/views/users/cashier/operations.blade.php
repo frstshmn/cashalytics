@@ -81,7 +81,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <input type="date" class="input bg-white" name="date_time" value="{{ $filter["date_time"] }}">
+                                    <input type="date" class="input bg-white" name="date_time_from" value="{{ $filter["date_time_from"] }}">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <input type="date" class="input bg-white" name="date_time_till" value="{{ $filter["date_time_till"] }}">
                                 </div>
                             </div>
                         </div>
@@ -106,6 +111,8 @@
                         <th scope="col">-</th>
                         <th scope="col">Курс</th>
                         <th scope="col">Дата</th>
+                        <th scope="col">Коментар</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -125,6 +132,16 @@
                             </td>
                             <td>{{ $operation->rate }}</td>
                             <td>{{ $operation->created_at }}</td>
+                            <td>{{ $operation->comments }}</td>
+                            <td>
+{{--                                <form action="{{ route("cancel-operation") }}">--}}
+{{--                                    @csrf--}}
+{{--                                    <input type="hidden" name="operation_id" value="{{ $operation->id }}">--}}
+{{--                                    <button class="button">--}}
+{{--                                        <i class="fa-solid fa-trash"></i>--}}
+{{--                                    </button>--}}
+{{--                                </form>--}}
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

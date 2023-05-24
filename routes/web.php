@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cash-exchange', "App\Http\Controllers\PointCashController@exchange")->name("cash-exchange")->middleware("role:cashier");
 
     Route::get('/operations', "App\Http\Controllers\OperationController@getCashierPage")->name("operations")->middleware("role:cashier");
+    Route::get('/cancel-operations', "App\Http\Controllers\OperationController@cancelOperation")->name("cancel-operation")->middleware("role:manager");
 
 
 //    Route::get('/exchange', function () {
