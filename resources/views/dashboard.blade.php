@@ -27,7 +27,10 @@
                         </div>
 
                         <div class="sidebar-footer text-center">
-                            <a class="button-outline danger mx-3" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Вийти </a>
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <button class="button-outline danger mx-3" type="submit"><i class="fa-solid fa-arrow-right-from-bracket"></i> Вийти </button>
+                            </form>
                         </div>
                     </div>
                 </div>
