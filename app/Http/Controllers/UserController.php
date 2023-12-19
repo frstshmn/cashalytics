@@ -6,6 +6,7 @@ use App\Models\Group;
 use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->username = strtolower($this->transliterate($request->last_name) . "_" . $this->transliterate($request->first_name));
-        $user->password = md5($request->password);
+        $user->password = Hash::make($request->password);
         $user->group_id = $request->group_id;
         $user->type_id = $request->type_id;
         $user->responsible_id = $request->responsible_id;
