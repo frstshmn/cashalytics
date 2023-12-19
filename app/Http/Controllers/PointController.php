@@ -87,7 +87,7 @@ class PointController extends Controller
         $point->is_open = $request->status == "status" ? 1 : 0;
         $point->group_id = $request->group_id;
         $point->employee_id = $request->employee_id;
-        $point->comment = $request->comment;
+        $point->comments = $request->comment ?? "";
 
         $point->save();
 
