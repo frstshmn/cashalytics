@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="sidebar-footer text-center">
-                            <button class="button-outline danger mx-3"><i class="fa-solid fa-arrow-right-from-bracket"></i> Вийти </button>
+                            <a class="button-outline danger mx-3" href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Вийти </a>
                         </div>
                     </div>
                 </div>
