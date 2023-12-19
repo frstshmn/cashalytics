@@ -84,7 +84,7 @@ class PointController extends Controller
 
         $point->title = $request->point_name;
         $point->pincode = $request->pincode;
-        $point->status = $request->status == "status" ? 1 : 0;
+        $point->is_open = $request->status == "status" ? 1 : 0;
         $point->group_id = $request->group_id;
         $point->employee_id = $request->employee_id;
         $point->comment = $request->comment;
