@@ -41,6 +41,5 @@ class CreateCurrencyPairsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currency_pairs');
     }
 }

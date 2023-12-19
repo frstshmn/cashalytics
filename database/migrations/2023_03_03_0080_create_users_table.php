@@ -41,11 +41,11 @@ class CreateUsersTable extends Migration
             array(
                 [
                     "id" => 1,
-                    "first_name" => "Volodymyr",
-                    "last_name" => "Korenha",
-                    "email" => "theskaters75@gmail.com",
-                    "username" => "frstshmn",
-                    "phone" => "+380501234567",
+                    "first_name" => "Start",
+                    "last_name" => "Admin",
+                    "email" => "example75@mail.com",
+                    "username" => "admin",
+                    "phone" => "+380001234567",
                     "password" => '$2y$10$mUGtCcxpOP/Vd2zxXoprIeKd9CxUP8LrWzY2QlwC13IWXtkg/zY7O',
                     "is_online" => false,
                     "last_login" => "2021-01-01 00:00:00",
@@ -66,6 +66,5 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
     }
 }

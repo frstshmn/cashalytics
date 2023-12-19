@@ -73,6 +73,5 @@ class CreatePointCash extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('point_cash');
     }
 }
