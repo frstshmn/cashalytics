@@ -60,7 +60,7 @@
                     <div class="col-6">
                         <label class="label">Пін-код</label>
                         <small class="label-hint">Використовується касиром для входу в панель керування операціями</small>
-                        <input class="input fw-bold" name="pincode" value="{{ $point->pincode }}" data-original="{{ $point->pincode }}">
+                        <input class="input fw-bold text-white" name="pincode" value="{{ $point->pincode }}" data-original="{{ $point->pincode }}">
                     </div>
                 </div>
 
