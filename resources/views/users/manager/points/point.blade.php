@@ -37,9 +37,9 @@
                             <select class="input" name="employee_id" data-original="{{$point->employee_id}}">
                                 @foreach( $users as $user )
                                     @if ($user->id == $point->employee_id)
-                                        <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}" selected>{{ $user->first_name }} {{ $user->last_name }}</option>
                                     @else
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
                                     @endif
                                 @endforeach
                             </select>

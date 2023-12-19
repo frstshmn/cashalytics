@@ -24,13 +24,13 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('phone', 13)->unique();
             $table->string('password');
-            $table->boolean('is_online');
-            $table->dateTime('last_login');
-            $table->dateTime('last_logout');
+            $table->boolean('is_online')->default(false);
+            $table->dateTime('last_login')->default(date('Y-m-d H:i:s'));
+            $table->dateTime('last_logout')->default(date('Y-m-d H:i:s'));
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('responsible_id');
-            $table->string('comments');
+            $table->string('comments')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
@@ -45,7 +45,7 @@ class CreateUsersTable extends Migration
                     "id" => 1,
                     "first_name" => "Start",
                     "last_name" => "Admin",
-                    "email" => "example75@mail.com",
+                    "email" => "example@mail.com",
                     "username" => "admin",
                     "phone" => "+380001234567",
                     "password" => '$2y$10$mUGtCcxpOP/Vd2zxXoprIeKd9CxUP8LrWzY2QlwC13IWXtkg/zY7O',
