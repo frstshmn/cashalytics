@@ -13,6 +13,8 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('clients')) { return; }
+
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');

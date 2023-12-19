@@ -14,6 +14,8 @@ class CreateCurrencyPairsTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('currency_pairs')) { return; }
+
         Schema::create('currency_pairs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('currency_1_id')->index();

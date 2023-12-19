@@ -13,6 +13,8 @@ class CreateOperationsTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('operations')) { return; }
+
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('outcome_currency_id')->index()->nullable()->constrained();

@@ -14,6 +14,8 @@ class CreateUserTypes extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('user_types')) { return; }
+
         Schema::create('user_types', function (Blueprint $table) {
             $table->id();
             $table->string('title');

@@ -14,6 +14,8 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('points')) { return; }
+
         Schema::create('points', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);

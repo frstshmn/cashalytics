@@ -14,6 +14,8 @@ class CreateRatesTable extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('rates')) { return; }
+
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pair_id')->default(1)->index();

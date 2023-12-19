@@ -13,6 +13,8 @@ class CreatePointCash extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('point_cash')) { return; }
+
         Schema::create('point_cash', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('point_id')->index();
