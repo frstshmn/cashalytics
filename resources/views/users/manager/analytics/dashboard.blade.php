@@ -27,12 +27,6 @@
                     <p class="color-success">545000</p>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="card border-rounded p-4">
-                    <h5 class="fw-bold">Загальні видатки</h5>
-                    <p class="color-danger">-45000</p>
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-12">
@@ -70,39 +64,7 @@
     </div>
     <div class="col-6">
         <div class="card w-100 border-rounded p-4">
-            <canvas id="myChart" width="400" height="400"></canvas>
-            <script>
-                const labels = [1,2,3,4,5,6,7];
-                const data = {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: 'Гроши',
-                            data: [1,5,2,8,4,4,9],
-                            borderColor: "#000",
-                            backgroundColor: "transparent",
-                        }
-                    ]
-                };
-                const config = {
-                    type: 'line',
-                    data: data,
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Графік'
-                            }
-                        }
-                    },
-                };
-                const ctx = document.getElementById('myChart').getContext('2d');
-                const myChart = new Chart(ctx, config);
-            </script>
+
         </div>
     </div>
 </div>

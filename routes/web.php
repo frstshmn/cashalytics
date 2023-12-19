@@ -17,33 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return view('auth.login');
 });
 
 Route::middleware(['auth'])->group(function () {
-//    Route::get('/points', "App\Http\Controllers\PointController@pointsList")->name("points");
-//    Route::get('/points/{id}', "App\Http\Controllers\PointController@singlePoint")->name("point");
-//    Route::post('/points', "App\Http\Controllers\PointController@create");
-//    Route::put('/points/{id}', "App\Http\Controllers\PointController@update");
-//
-//    Route::post('/pointgroups', "App\Http\Controllers\PointGroupController@create");
-//
-//    Route::get('/rates', "App\Http\Controllers\RateController@ratesList")->name("rates");
-//    Route::post('/rates', "App\Http\Controllers\RateController@setRates");
-//
-//    Route::post('/currency-pairs', "App\Http\Controllers\CurrencyPairController@create");
-//    Route::put('/currency-pairs/{id}', "App\Http\Controllers\CurrencyPairController@update");
-//    Route::delete('/currency-pairs/{id}', "App\Http\Controllers\CurrencyPairController@delete");
-
-//    Route::get('/employees', "App\Http\Controllers\UserController@employeesList")->name("employees");
-
-//    Route::get('/analytics/total', function () {
-//        return view('users.manager.analytics.dashboard');
-//    });
-//    Route::get('/analytics/points', function () {
-//        return view('users.manager.analytics.points');
-//    })->middleware("role:manager");
-
+    // Cashier routes
     Route::get('/exchange', "App\Http\Controllers\PointController@getExchangePage")->name("exchange")->middleware("role:cashier");
     Route::get('/points', "App\Http\Controllers\PointController@pointsLoginList")->name("points")->middleware("role:cashier");
     Route::post('/point-login', "App\Http\Controllers\PointController@login")->name("point-login")->middleware("role:cashier");
@@ -57,16 +35,39 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cash-exchange', "App\Http\Controllers\PointCashController@exchange")->name("cash-exchange")->middleware("role:cashier");
 
     Route::get('/operations', "App\Http\Controllers\OperationController@getCashierPage")->name("operations")->middleware("role:cashier");
+
+    // Manager routes
     Route::get('/cancel-operations', "App\Http\Controllers\OperationController@cancelOperation")->name("cancel-operation")->middleware("role:manager");
+    Route::get('/points', "App\Http\Controllers\PointController@pointsList")->name("points")->middleware("role:manager");
+    Route::get('/points/{id}', "App\Http\Controllers\PointController@singlePoint")->name("point")->middleware("role:manager");
+    Route::post('/points', "App\Http\Controllers\PointController@create")->middleware("role:manager");
+    Route::put('/points/{id}', "App\Http\Controllers\PointController@update")->middleware("role:manager");
+
+    Route::post('/pointgroups', "App\Http\Controllers\PointGroupController@create")->middleware("role:manager");
+
+    Route::get('/rates', "App\Http\Controllers\RateController@ratesList")->name("rates")->middleware("role:manager");
+    Route::post('/rates', "App\Http\Controllers\RateController@setRates")->middleware("role:manager");
+
+    Route::post('/currency-pairs', "App\Http\Controllers\CurrencyPairController@create")->middleware("role:manager");
+    Route::put('/currency-pairs/{id}', "App\Http\Controllers\CurrencyPairController@update")->middleware("role:manager");
+    Route::delete('/currency-pairs/{id}', "App\Http\Controllers\CurrencyPairController@delete")->middleware("role:manager");
+
+    Route::get('/employees', "App\Http\Controllers\UserController@employeesList")->name("employees")->middleware("role:manager");
+    Route::post('/employees', "App\Http\Controllers\UserController@create")->name("create_employee")->middleware("role:manager");
+    Route::put('/employees', "App\Http\Controllers\UserController@update")->name("update_employee")->middleware("role:manager");
+    Route::delete('/employees', "App\Http\Controllers\UserController@delete")->name("delete_employee")->middleware("role:manager");
+
+    Route::get('/analytics/total', "App\Http\Controllers\AnalysisController@analysisTotal")->name("analysisTotal")->middleware("role:manager");
+
+    Route::get('/analytics/points', function () {
+        return view('users.manager.analytics.points');
+    })->middleware("role:manager");
 
 
-//    Route::get('/exchange', function () {
-//        return view('users.cashier.dashboard');
-//    })->middleware("role:cashier");
-
-//    Route::get('/dashboard', function () {
-//        return view('dashboard');
-//    });
+    Route::get('/dashboard', "App\Http\Controllers\PointController@getExchangePage")->middleware("role:cashier");
+    Route::get('/dashboard', function () {
+        return view('users.manager.analytics.dashboard');
+    })->middleware("role:manager");
 });
 
 require __DIR__.'/auth.php';

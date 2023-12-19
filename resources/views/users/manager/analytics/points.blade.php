@@ -80,40 +80,44 @@
         <div class="col-6">
             <div class="card w-100 border-rounded p-4">
                 <canvas id="myChart" width="400" height="200"></canvas>
-                <script>
-                    const labels = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"];
-                    const data = {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Кількість операцій',
-                                data: [1,5,2,8,4,4,9,2,4,9,5],
-                                borderColor: "#000",
-                                backgroundColor: "#000",
-                            }
-                        ]
-                    };
-                    const config = {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Завантаженість'
-                                }
-                            }
-                        },
-                    };
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const myChart = new Chart(ctx, config);
-                </script>
             </div>
         </div>
     </div>
 
+@endsection
+
+@section("additional_scripts")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const labels = ["8:00","9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Кількість операцій',
+                    data: [1,5,2,8,4,4,9,2,4,9,5],
+                    borderColor: "#000",
+                    backgroundColor: "#000",
+                }
+            ]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Завантаженість'
+                    }
+                }
+            },
+        };
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, config);
+    </script>
 @endsection
