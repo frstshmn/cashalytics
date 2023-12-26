@@ -104,7 +104,7 @@
                                             <button type="submit" class="button-outline"><i class="fa-solid fa-floppy-disk"></i></button>
                                         </form>
                                     </td>
-                                    <td>{{$currency_pair->getCurrencies()[0]->code}} / {{$currency_pair->getCurrencies()[1]->code}}</td>
+{{--                                    <td>{{$currency_pair->getCurrencies()[0]->code}} / {{$currency_pair->getCurrencies()[1]->code}}</td>--}}
                                     <td>
                                         <form action="/currency-pairs/{{$currency_pair->id}}" method="POST" class="confirmation" data-confirmation='Ви дійсно хочете видалити пару "{{$currency_pair->title}}"'>
                                             @csrf @method("DELETE")
