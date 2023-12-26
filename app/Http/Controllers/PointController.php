@@ -76,7 +76,7 @@ class PointController extends Controller
         $point->is_open = 0;
         $point->group_id = $request->group_id;
         $point->employee_id = Auth::user()->id;
-        $point->comment = $request->comment;
+        $point->comments = $request->comment;
 
         $point->save();
 
