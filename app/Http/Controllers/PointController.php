@@ -14,22 +14,27 @@ class PointController extends Controller
     public function getExchangePage( Request $request ) {
         $point = Point::where("employee_id", Auth::user()->id)->first();
         $operations = Operation::where("point_id", $point->id)->orderBy("created_at", "desc")->take(10)->get();
-        if ($point) {
-            if ($request->message) {
-                return view('users.cashier.dashboard', array(
-                    "point" => $point,
-                    "operations" => $operations,
-                    "message" => $request->message,
-                    "type" => $request->type,
-                ));
-            } else {
-                return view('users.cashier.dashboard', array(
-                    "point" => $point,
-                    "operations" => $operations
-                ));
-            }
+
+        if (Auth::user()->type_id == 1) {
+            return redirect()->route('analysisTotal');
         } else {
-            return redirect()->route('points');
+            if ($point) {
+                if ($request->message) {
+                    return view('users.cashier.dashboard', array(
+                        "point" => $point,
+                        "operations" => $operations,
+                        "message" => $request->message,
+                        "type" => $request->type,
+                    ));
+                } else {
+                    return view('users.cashier.dashboard', array(
+                        "point" => $point,
+                        "operations" => $operations
+                    ));
+                }
+            } else {
+                return redirect()->route('points');
+            }
         }
     }
 

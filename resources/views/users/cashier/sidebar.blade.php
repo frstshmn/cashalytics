@@ -6,7 +6,7 @@
         </a>
     </span>
     <span class="sidebar-item">
-        <a href="/points">
+        <a href="/points/list">
             <i class="fa-solid fa-landmark me-2"></i>
             <span class="sidebar-item-text item-to-hide">Пункти</span>
         </a>
