@@ -15,8 +15,13 @@ class PointController extends Controller
         $point = Point::where("employee_id", Auth::user()->id)->first();
 
         if (!$point) {
-            return redirect()->route('points');
+            if (Auth::user()->type_id == 1) {
+                return redirect()->route('analysisTotal');
+            } else {
+                 return $this->pointsLoginList();
+            }
         }
+
         $operations = Operation::where("point_id", $point->id)->orderBy("created_at", "desc")->take(10)->get();
 
         if (Auth::user()->type_id == 1) {
@@ -37,7 +42,7 @@ class PointController extends Controller
                     ));
                 }
             } else {
-                return redirect()->route('points');
+                return $this->pointsLoginList();
             }
         }
     }
