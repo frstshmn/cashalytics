@@ -13,6 +13,10 @@ class PointController extends Controller
 {
     public function getExchangePage( Request $request ) {
         $point = Point::where("employee_id", Auth::user()->id)->first();
+
+        if (!$point) {
+            return redirect()->route('points');
+        }
         $operations = Operation::where("point_id", $point->id)->orderBy("created_at", "desc")->take(10)->get();
 
         if (Auth::user()->type_id == 1) {
